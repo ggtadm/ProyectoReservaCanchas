@@ -3,12 +3,19 @@ body {
     background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
+}
+
+/* Fondo solo para login */
+.login-background {
     background-image: url('/static/bleachers-1867992_1920.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
 }
+
+/* Resto del estilo permanece igual... */
+
 
 /* Títulos */
 h1, h2, h4 {

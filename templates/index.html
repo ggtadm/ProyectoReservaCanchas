@@ -3,22 +3,22 @@
 {% block title %}Inicio - Sistema de Reservación{% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <h1 class="display-5 mb-4">🏟️ Bienvenido al Sistema de Reservación de Canchas</h1>
+<div class="welcome-container text-center mx-auto">
+    <h1 class="display-5 mb-3">🏟️ Bienvenido al Sistema de Reservación de Canchas</h1>
     <p class="lead">Desde este sistema podrás gestionar clientes, canchas, reservaciones y pagos de forma sencilla y profesional.</p>
 
-    <div class="row mt-5">
-        <div class="col-md-3">
-            <a href="{{ url_for('clientes') }}" class="btn btn-outline-primary btn-lg w-100">Clientes</a>
+    <div class="row mt-4">
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('clientes') }}" class="btn btn-outline-primary btn-lg w-100">👥 Clientes</a>
         </div>
-        <div class="col-md-3">
-            <a href="{{ url_for('canchas') }}" class="btn btn-outline-success btn-lg w-100">Canchas</a>
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('canchas') }}" class="btn btn-outline-success btn-lg w-100">⚽ Canchas</a>
         </div>
-        <div class="col-md-3">
-            <a href="{{ url_for('reservaciones') }}" class="btn btn-outline-warning btn-lg w-100">Reservaciones</a>
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('reservaciones') }}" class="btn btn-outline-warning btn-lg w-100">📅 Reservaciones</a>
         </div>
-        <div class="col-md-3">
-            <a href="{{ url_for('pagos') }}" class="btn btn-outline-danger btn-lg w-100">Pagos</a>
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('pagos') }}" class="btn btn-outline-danger btn-lg w-100">💳 Pagos</a>
         </div>
     </div>
 </div>
