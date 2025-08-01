@@ -1,37 +1,26 @@
-{% extends "layout_limpio.html" %}
+{% extends "layout.html" %}
 
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
-        <div class="card shadow-lg border-0">
+        <div class="card shadow-sm">
             <div class="card-header bg-dark text-white text-center">
-                <h5 class="mb-0">Iniciar Sesión</h5>
+                <h4 class="mb-0">Iniciar Sesión</h4>
             </div>
             <div class="card-body">
                 <form action="{{ url_for('auth.login_post') }}" method="POST">
                     <div class="mb-3">
                         <label for="correo" class="form-label">Correo electrónico</label>
-                        <input type="email" name="correo" class="form-control" required autofocus>
+                        <input type="email" name="correo" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
                         <input type="password" name="contrasena" class="form-control" required>
                     </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                 </form>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <div class="alert alert-warning mt-3">
-                            {% for msg in messages %}
-                                <div>{{ msg }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
             </div>
         </div>
     </div>

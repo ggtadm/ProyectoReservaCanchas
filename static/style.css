@@ -1,22 +1,27 @@
+/* Fondo general */
 body {
     background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Títulos */
 h1, h2, h4 {
     color: #333;
     font-weight: 600;
 }
 
+/* Barra de navegación */
 .navbar {
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Contenedor principal */
 .container {
     margin-top: 30px;
 }
 
+/* Botones */
 .btn {
     font-weight: 500;
     transition: all 0.2s ease-in-out;
@@ -26,19 +31,29 @@ h1, h2, h4 {
     transform: scale(1.03);
 }
 
+/* Tablas */
 .table th, .table td {
     vertical-align: middle;
     font-size: 0.95rem;
 }
 
-input[type="text"], input[type="number"], input[type="date"], input[type="time"], input[type="email"], select {
+/* Inputs y selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="email"],
+input[type="password"],
+select {
     border-radius: 6px;
 }
 
+/* Etiquetas de formularios */
 form .form-label {
     font-weight: 500;
 }
 
+/* Footer */
 footer {
     margin-top: 40px;
     padding: 20px 0;
@@ -46,4 +61,25 @@ footer {
     text-align: center;
     color: #666;
     font-size: 0.9rem;
+}
+
+/* --- Estilo login --- */
+.login-box {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h2 {
+    background-color: #212529;
+    color: #fff;
+    padding: 15px;
+    margin: -30px -30px 30px -30px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    text-align: center;
+    font-size: 1.3rem;
 }
