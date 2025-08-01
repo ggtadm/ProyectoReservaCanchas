@@ -2,6 +2,7 @@
 body {
     background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
 }
 
 /* Títulos */
@@ -64,13 +65,20 @@ footer {
 }
 
 /* --- Estilo login --- */
+.full-height {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .login-box {
+    width: 100%;
     max-width: 400px;
-    margin: 0 auto;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
 }
 
 .login-box h2 {
@@ -81,5 +89,6 @@ footer {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
 }
