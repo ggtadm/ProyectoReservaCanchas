@@ -2,24 +2,24 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from conexion import conectar
 
 app = Flask(__name__)
-app.secret_key = 'secreto123'  # Necesario para mostrar mensajes flash
+app.secret_key = 'secreto123'  # Necesario para mensajes flash
 
-# Ruta principal
+# Página principal
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Ruta para mostrar clientes
+# --------------------- CLIENTES ---------------------
+
 @app.route('/clientes')
 def clientes():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Clientes")
-    datos = cursor.fetchall()
+    clientes = cursor.fetchall()
     conn.close()
-    return render_template('clientes.html', clientes=datos)
+    return render_template('clientes.html', clientes=clientes)
 
-# Ruta para agregar un cliente
 @app.route('/agregar_cliente', methods=['POST'])
 def agregar_cliente():
     nombre = request.form['nombre']
@@ -30,24 +30,25 @@ def agregar_cliente():
 
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Clientes (Nombre, Apellido, Telefono, Correo, CedulaID) VALUES (?, ?, ?, ?, ?)",
-                   (nombre, apellido, telefono, correo, cedula))
+    cursor.execute("""
+        INSERT INTO Clientes (Nombre, Apellido, Telefono, Correo, CedulaID)
+        VALUES (?, ?, ?, ?, ?)""", (nombre, apellido, telefono, correo, cedula))
     conn.commit()
     conn.close()
-    flash('Cliente agregado correctamente')
+    flash('✅ Cliente agregado correctamente')
     return redirect(url_for('clientes'))
 
-# Ruta para mostrar canchas
+# --------------------- CANCHAS ---------------------
+
 @app.route('/canchas')
 def canchas():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Canchas")
-    datos = cursor.fetchall()
+    canchas = cursor.fetchall()
     conn.close()
-    return render_template('canchas.html', canchas=datos)
+    return render_template('canchas.html', canchas=canchas)
 
-# Ruta para agregar una cancha
 @app.route('/agregar_cancha', methods=['POST'])
 def agregar_cancha():
     nombre = request.form['nombre']
@@ -58,29 +59,31 @@ def agregar_cancha():
 
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Canchas (Nombre, Tipo, Descripcion, PrecioPorHora, Estado) VALUES (?, ?, ?, ?, ?)",
-                   (nombre, tipo, descripcion, precio, estado))
+    cursor.execute("""
+        INSERT INTO Canchas (Nombre, Tipo, Descripcion, PrecioPorHora, Estado)
+        VALUES (?, ?, ?, ?, ?)""", (nombre, tipo, descripcion, precio, estado))
     conn.commit()
     conn.close()
-    flash('Cancha agregada correctamente')
+    flash('✅ Cancha agregada correctamente')
     return redirect(url_for('canchas'))
 
-# Ruta para mostrar reservaciones
+# --------------------- RESERVACIONES ---------------------
+
 @app.route('/reservaciones')
 def reservaciones():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT r.ReservaID, c.Nombre + ' ' + c.Apellido, ca.Nombre, r.Fecha, r.HoraInicio, r.HoraFin, r.Estado
+        SELECT r.ReservaID, c.Nombre + ' ' + c.Apellido AS Cliente, ca.Nombre AS Cancha,
+               r.Fecha, r.HoraInicio, r.HoraFin, r.Estado
         FROM Reservaciones r
         JOIN Clientes c ON r.CedulaID = c.CedulaID
         JOIN Canchas ca ON r.CanchaID = ca.CanchaID
     """)
-    datos = cursor.fetchall()
+    reservaciones = cursor.fetchall()
     conn.close()
-    return render_template('reservaciones.html', reservaciones=datos)
+    return render_template('reservaciones.html', reservaciones=reservaciones)
 
-# Ruta para agregar una reservación
 @app.route('/agregar_reservacion', methods=['POST'])
 def agregar_reservacion():
     cedula = request.form['cedula']
@@ -94,24 +97,27 @@ def agregar_reservacion():
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO Reservaciones (CedulaID, CanchaID, Fecha, HoraInicio, HoraFin, Estado)
-        VALUES (?, ?, ?, ?, ?, ?)""",
-        (cedula, cancha, fecha, hora_inicio, hora_fin, estado))
+        VALUES (?, ?, ?, ?, ?, ?)""", (cedula, cancha, fecha, hora_inicio, hora_fin, estado))
     conn.commit()
     conn.close()
-    flash('Reservación agregada correctamente')
+    flash('✅ Reservación agregada correctamente')
     return redirect(url_for('reservaciones'))
 
-# Ruta para mostrar pagos
+# --------------------- PAGOS ---------------------
+
 @app.route('/pagos')
 def pagos():
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Pagos")
-    datos = cursor.fetchall()
+    cursor.execute("""
+        SELECT p.PagoID, r.ReservaID, p.MontoPago, p.FechaPago, p.MetodoPago, p.EstadoPago
+        FROM Pagos p
+        JOIN Reservaciones r ON p.ReservaID = r.ReservaID
+    """)
+    pagos = cursor.fetchall()
     conn.close()
-    return render_template('pagos.html', pagos=datos)
+    return render_template('pagos.html', pagos=pagos)
 
-# Ruta para agregar un pago
 @app.route('/agregar_pago', methods=['POST'])
 def agregar_pago():
     reserva_id = request.form['reserva_id']
@@ -123,16 +129,18 @@ def agregar_pago():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO Pagos (ReservaID, MontoPagado, FechaPago, MetodoPago, EstadoPago)
-        VALUES (?, ?, ?, ?, ?)""",
-        (reserva_id, monto, fecha_pago, metodo, estado))
+        INSERT INTO Pagos (ReservaID, MontoPago, FechaPago, MetodoPago, EstadoPago)
+        VALUES (?, ?, ?, ?, ?)""", (reserva_id, monto, fecha_pago, metodo, estado))
     conn.commit()
     conn.close()
-    flash('Pago registrado correctamente')
+    flash('✅ Pago registrado correctamente')
     return redirect(url_for('pagos'))
+
+# --------------------- EJECUCIÓN ---------------------
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
