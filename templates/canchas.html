@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}Canchas - Sistema de Reservación{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">🏟️ Gestión de Canchas</h2>
+
+<!-- Formulario para agregar cancha -->
+<form method="POST" action="{{ url_for('agregar_cancha') }}" class="row g-3">
+    <div class="col-md-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="col-md-2">
+        <label for="tipo" class="form-label">Tipo</label>
+        <select class="form-select" id="tipo" name="tipo" required>
+            <option value="5v5">5v5</option>
+            <option value="7v7">7v7</option>
+            <option value="11v11">11v11</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+    </div>
+    <div class="col-md-2">
+        <label for="precio" class="form-label">Precio por Hora</label>
+        <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
+    </div>
+    <div class="col-md-2">
+        <label for="estado" class="form-label">Estado</label>
+        <select class="form-select" id="estado" name="estado" required>
+            <option value="Disponible">Disponible</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success">Agregar Cancha</button>
+    </div>
+</form>
+
+<!-- Tabla de canchas -->
+<div class="mt-5">
+    <h4>📋 Lista de Canchas</h4>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Precio/Hora</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cancha in canchas %}
+            <tr>
+                <td>{{ cancha[0] }}</td>
+                <td>{{ cancha[1] }}</td>
+                <td>{{ cancha[2] }}</td>
+                <td>{{ cancha[3] }}</td>
+                <td>₡{{ cancha[4] }}</td>
+                <td>{{ cancha[5] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">No hay canchas registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

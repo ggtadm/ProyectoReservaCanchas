@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}Clientes - Sistema de Reservación{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">👤 Gestión de Clientes</h2>
+
+<!-- Formulario para agregar cliente -->
+<form method="POST" action="{{ url_for('agregar_cliente') }}" class="row g-3">
+    <div class="col-md-2">
+        <label for="cedula" class="form-label">Cédula</label>
+        <input type="number" class="form-control" id="cedula" name="cedula" required>
+    </div>
+    <div class="col-md-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="col-md-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="apellido" name="apellido" required>
+    </div>
+    <div class="col-md-2">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="telefono" name="telefono" required>
+    </div>
+    <div class="col-md-4">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="correo" name="correo" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Agregar Cliente</button>
+    </div>
+</form>
+
+<!-- Tabla de clientes -->
+<div class="mt-5">
+    <h4>📋 Lista de Clientes</h4>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente[0] }}</td>
+                <td>{{ cliente[1] }}</td>
+                <td>{{ cliente[2] }}</td>
+                <td>{{ cliente[3] }}</td>
+                <td>{{ cliente[4] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No hay clientes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
