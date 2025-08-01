@@ -1,28 +1,25 @@
-{% extends "layout_limpio.html" %}
+{% extends "layout_Limpio.html" %}
 
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-dark text-white text-center">
-                <h4 class="mb-0">Iniciar Sesión</h4>
+<div class="full-height flex-column d-flex align-items-center justify-content-center">
+    <div class="login-box">
+        <h2>Iniciar Sesión</h2>
+        <form action="{{ url_for('auth.login_post') }}" method="POST">
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" name="correo" class="form-control" required>
             </div>
-            <div class="card-body">
-                <form action="{{ url_for('auth.login_post') }}" method="POST">
-                    <div class="mb-3">
-                        <label for="correo" class="form-label">Correo electrónico</label>
-                        <input type="email" name="correo" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="contrasena" class="form-label">Contraseña</label>
-                        <input type="password" name="contrasena" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                </form>
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" name="contrasena" class="form-control" required>
             </div>
-        </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        </form>
     </div>
+
+    <!-- Frase inspiradora -->
+    <p class="text-white mt-4 fw-semibold">"¡Reserva tu cancha y vive el deporte!"</p>
 </div>
 {% endblock %}
